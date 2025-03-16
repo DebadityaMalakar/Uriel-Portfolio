@@ -1,0 +1,54 @@
+/* Background Colors */
+.background-gold {
+    background-color: #FFD700 !important;
+}
+
+.background-purple {
+    background-color: #5D4E8C !important;
+}
+
+.background-lavender {
+    background-color: #F8F4FF !important;
+}
+
+.background-deep-blue {
+    background-color: #2E2A5D !important;
+}
+
+.background-white {
+    background-color: #FFFFFF !important;
+}
+
+/* Text Colors */
+.text-gold {
+    color: #FFD700 !important;
+}
+
+.text-purple {
+    color: #5D4E8C !important;
+}
+
+.text-lavender {
+    color: #F8F4FF !important;
+}
+
+.text-deep-blue {
+    color: #2E2A5D !important;
+}
+
+.text-white {
+    color: #FFFFFF !important;
+}
+
+/* Optional: Utility Classes for Borders */
+.border-gold {
+    border: 2px solid #FFD700 !important;
+}
+
+.border-purple {
+    border: 2px solid #5D4E8C !important;
+}
+
+.border-deep-blue {
+    border: 2px solid #2E2A5D !important;
+}

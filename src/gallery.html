@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uriel's Gallery</title>
+    <link rel="stylesheet" href="./css/normalize.css">
+    <link rel="stylesheet" href="./css/layout.css">
+    <link rel="shortcut icon" href="./images/Uriel-0.jpeg" type="image/x-icon">
+    <style>
+        /* Gallery specific styling */
+        .gallery-container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .gallery-item {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(93, 78, 140, 0.2);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(93, 78, 140, 0.3);
+        }
+        
+        .gallery-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+            transition: filter 0.3s ease;
+        }
+        
+        .gallery-item:hover .gallery-img {
+            filter: brightness(1.05);
+        }
+        
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(93, 78, 140, 0.8);
+            color: white;
+            padding: 8px 12px;
+            font-size: 14px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+        }
+        
+        .gallery-empty {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 50px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        }
+        
+        /* Modal for viewing larger images */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            overflow: hidden;
+        }
+        
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            margin: auto;
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            object-fit: contain;
+        }
+        
+        .modal-caption {
+            position: absolute;
+            bottom: 30px;
+            left: 0;
+            right: 0;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        /* Loading indicator */
+        .loading {
+            text-align: center;
+            padding: 50px;
+            font-size: 18px;
+            color: #5d4e8c;
+        }
+        
+        .loading-spinner {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #5d4e8c;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 2s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 15px;
+            }
+            
+            .gallery-img {
+                height: 150px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+                gap: 10px;
+            }
+            
+            .gallery-img {
+                height: 160px;
+            }
+            
+            .gallery-caption {
+                padding: 5px 8px;
+                font-size: 12px;
+            }
+        }
+        .disclaimer {
+            text-align: center;
+            font-size: 18px;
+            color: #555;
+            margin-top: 10px;
+            padding: 10px;
+            background: rgba(93, 78, 140, 0.1);
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <nav class="navbar">
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="./about.html">About</a></li>
+                <li><a href="./gallery.html">Gallery</a></li>
+                <li><a href="./contacts.html">Contacts</a></li>
+            </ul>
+        </nav>
+    </div>
+    
+    <div class="main">
+        <div class="profile-section">
+            <div class="profile-image">
+                <img src="./images/Uriel-1.jpeg" alt="Uriel Image">
+            </div>
+            <h1 class="page-title">Uriel's Gallery ✨</h1>
+            <div class="disclaimer">
+                <p>
+                    Some artwork in this gallery may be uncredited. If you are the artist and would like to be credited or have your artwork removed, 
+                    please contact me. I respect all artists' work and will make the necessary changes as soon as possible.
+                </p>
+            </div>
+        </div>
+        
+        <div class="content-section open-sans">
+            <div class="gallery-container">
+                <div id="loading" class="loading">
+                    <div class="loading-spinner"></div>
+                    <p>Loading Uriel's gallery...</p>
+                </div>
+                
+                <div id="gallery" class="gallery-grid"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Image Modal -->
+    <div id="imageModal" class="modal">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <div id="modalCaption" class="modal-caption"></div>
+    </div>
+    
+    <script type="module">
+        document.addEventListener("DOMContentLoaded", function() {
+            loadGalleryImages();
+        });
+        
+        // Function to load gallery images
+        function loadGalleryImages() {
+            const galleryContainer = document.getElementById('gallery');
+            const loadingElement = document.getElementById('loading');
+            
+            // Since client-side JavaScript cannot directly read server directories,
+            // we'll need to use an API or predefined list in production.
+            // For demo purposes, let's simulate image loading with sample data:
+            
+            // Simulated API response - in production, replace with actual API call
+            fetch('./api/gallery-images.json')
+                .then(response => {
+                    // For demo purposes, we'll simulate an API response
+                    // In production, you'd use a real API endpoint
+                    const simulatedImages = [
+                        { path: new URL('./images/gallery/uriel-1.jpeg', import.meta.url).href, name: 'Uriel Angelic Form' },
+                        { path: new URL('./images/gallery/uriel-3.webp', import.meta.url).href, name: 'Uriel and Jung Heewon' },
+                        { path: new URL('./images/gallery/uriel-6.jpg', import.meta.url).href, name: 'Uriel with Kim Dokja' },
+                        { path: new URL('./images/gallery/uriel-8.jpeg', import.meta.url).href, name: 'Uriel Official Art', credit: "BlackBox-nim" }
+                    ];
+
+                    return { ok: true, json: () => Promise.resolve(simulatedImages) };
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to load gallery images');
+                    }
+                    return response.json();
+                })
+                .then(images => {
+                    // Hide loading indicator
+                    loadingElement.style.display = 'none';
+                    
+                    if (images.length === 0) {
+                        galleryContainer.innerHTML = `
+                            <div class="gallery-empty">
+                                <h3>No Images Found</h3>
+                                <p>No images matching the pattern "uriel-*.(png|jpg|jpeg)" were found in the gallery directory.</p>
+                            </div>
+                        `;
+                        return;
+                    }
+                    
+                    // Create gallery items
+                    images.forEach((image, index) => {
+                        const galleryItem = document.createElement('div');
+                        galleryItem.className = 'gallery-item';
+                        galleryItem.innerHTML = `
+                            <img src="${image.path}" alt="${image.name}" class="gallery-img">
+                            <div class="gallery-caption">${image.name}</div>
+                            <p style="text-align: center; font-size: 13px; color: #100; margin-top: 5px;">Credit: ${image.credit || '??'}</p>
+                        `;
+                        
+                        galleryItem.addEventListener('click', function() {
+                            openModal(image.path, image.name);
+                        });
+                        
+                        galleryContainer.appendChild(galleryItem);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error loading gallery images:', error);
+                    loadingElement.style.display = 'none';
+                    galleryContainer.innerHTML = `
+                        <div class="gallery-empty">
+                            <h3>Error Loading Gallery</h3>
+                            <p>There was a problem loading the gallery images. Please try again later.</p>
+                            <p>Technical details: ${error.message}</p>
+                        </div>
+                    `;
+                });
+        }
+        
+        // Modal functions
+        function openModal(imageSrc, caption) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            const modalCaption = document.getElementById('modalCaption');
+            
+            modal.style.display = 'block';
+            modalImg.src = imageSrc;
+            modalCaption.textContent = caption;
+            
+            // Prevent scrolling on body when modal is open
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal() {
+            document.getElementById('imageModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Close modal when clicking outside of image
+        window.onclick = function(event) {
+            const modal = document.getElementById('imageModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
+        
+        // In a real implementation, you'd need a server-side script to scan the directory
+        // Here's a commented example of what a PHP script would look like:
+        /*
+        PHP Implementation (gallery-images.php):
+        
+        <?php
+        header('Content-Type: application/json');
+        
+        $galleryDir = './images/gallery/';
+        $images = [];
+        
+        // Get all files matching the pattern
+        $files = glob($galleryDir . 'uriel-*.{jpg,jpeg,png}', GLOB_BRACE);
+        
+        foreach ($files as $file) {
+            $fileName = basename($file);
+            $name = pathinfo($fileName, PATHINFO_FILENAME);
+            $name = str_replace('-', ' ', $name);
+            $name = ucwords($name);
+            
+            $images[] = [
+                'path' => $file,
+                'name' => $name
+            ];
+        }
+        
+        echo json_encode($images);
+        ?>
+        */
+    </script>
+</body>
+</html>

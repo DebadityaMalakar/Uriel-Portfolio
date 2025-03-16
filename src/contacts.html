@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Uriel</title>
+    <link rel="stylesheet" href="./css/normalize.css">
+    <link rel="stylesheet" href="./css/layout.css">
+    <link rel="shortcut icon" href="./images/Uriel-0.jpeg" type="image/x-icon">
+    <style>
+        /* Additional styles specific to the contact form */
+        .form-container {
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .form-header {
+            color: #5d4e8c;
+            border-bottom: 2px solid #ffd700;
+            padding-bottom: 8px;
+            margin-top: 0;
+            text-align: center;
+        }
+
+        .form-description {
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .google-form-container {
+            width: 100%;
+            height: 600px;
+            overflow: hidden;
+            border: none;
+        }
+
+        .google-form-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .contact-info {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .contact-method {
+            margin-bottom: 15px;
+        }
+
+        .contact-icon {
+            color: #5d4e8c;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .social-button {
+            background-color: #5d4e8c;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .social-button:hover {
+            background-color: #2E2A5D;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <nav class="navbar">
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="./about.html">About</a></li>
+                <li><a href="./gallery.html">Gallery</a></li>
+                <li><a href="./contacts.html">Contacts</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="main">
+        <div class="profile-section">
+            <div class="profile-image">
+                <img src="./images/Uriel-0.jpeg" alt="Uriel Image">
+            </div>
+            <h1 class="page-title">Contact Uriel ✨</h1>
+        </div>
+        
+        <div class="content-section open-sans">
+            <div class="form-container">
+                <h2 class="form-header">Send Me Your Message</h2>
+                <p class="form-description">Have questions about Eden? Want to share your artwork? Send me your thoughts!</p>
+                
+                <!-- Google Form Container - Replace the src with your actual Google Form embed URL -->
+                <div class="google-form-container">
+                    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfI2O62YB3cxSnCox-fu-eLr4GaUM78PhJa1uwxN_rh1kddFA/viewform?usp=dialog" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+                </div>
+                
+                <div class="contact-info">
+                    <h3 class="text-purple">Other Ways to Reach Me</h3>
+                    
+                    <div class="contact-method">
+                        <span class="contact-icon">📧</span> Email: debadityamalakar@outlook.com
+                    </div>
+                    
+                    <div class="contact-method">
+                        <span class="contact-icon">📱</span> [Constellation Channel]: The Demon-like Judge of Fire
+                    </div>
+                    
+                    <div class="social-links">
+                        <a href="https://github.com/DebadityaMalakar" target="_blank" rel="noopener noreferrer" class="social-button">GitHub</a>
+                        <a href="https://debaditya.is-a.dev"  target="_blank" rel="noopener noreferrer" class="social-button">My Portfolio</a>
+                        <a href="https://www.linkedin.com/in/debaditya-malakar-3ba9b5334 "  target="_blank" rel="noopener noreferrer" class="social-button">LinkedIn</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
